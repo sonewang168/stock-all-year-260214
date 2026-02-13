@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>⚔️ 台股作戰計畫 2026-2027</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔️</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0f1a;--bg2:#0d1929;--cyan:#64ffda;--cyan2:#00bcd4;--green:#00e676;--red:#ff5252;--orange:#ff8c00;--gold:#ffd700;--blue:#1e88e5;--purple:#bb86fc;--txt:#e0e6ed;--sub:#5a7a9a;--sub2:#4a6a8a;--sub3:#8ab4d6;--sub4:#3a5a7a;--border:rgba(100,255,218,0.08);--border2:rgba(100,255,218,0.15);--card:rgba(13,25,41,0.6);--card2:rgba(13,25,41,0.3);--mono:'JetBrains Mono',monospace;--sans:'Noto Sans TC','Segoe UI',sans-serif}
+html,body{height:100%;font-family:var(--sans);background:linear-gradient(135deg,var(--bg) 0%,var(--bg2) 50%,#0a1628 100%);color:var(--txt)}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#1e3a5f;border-radius:3px}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes barGrow{from{width:0}}
+.fade{animation:fadeIn .3s ease-out}
+.card{border-radius:12px;border:1px solid var(--border);background:var(--card);overflow:hidden;margin-bottom:14px}
+.card-head{padding:10px 16px;background:rgba(100,255,218,.04);border-bottom:1px solid rgba(100,255,218,.06)}
+.card-head h3{font-size:13px;font-weight:700;color:var(--sub3)}
+.task-row{display:flex;align-items:flex-start;gap:10px;padding:9px 16px;border-bottom:1px solid rgba(100,255,218,.04);transition:background .15s}
+.task-row:hover{background:rgba(100,255,218,.03)}
+.chk{width:20px;height:20px;min-width:20px;border-radius:4px;border:2px solid #2a4a6a;background:transparent;cursor:pointer;display:flex;justify-content:center;align-items:center;margin-top:1px;transition:all .2s;flex-shrink:0}
+.chk.done{border-color:var(--green);background:rgba(0,230,118,.15)}
+.chk.red{border-color:#5a3333}.chk.red.done{border-color:var(--red);background:rgba(231,76,60,.15)}
+.btn{padding:6px 14px;border-radius:7px;font-size:12px;cursor:pointer;font-weight:600;border:1px solid transparent;transition:all .2s;font-family:var(--sans)}
+.btn:hover{transform:translateY(-1px)}
+.btn-p{background:linear-gradient(135deg,rgba(100,255,218,.2),rgba(0,188,212,.2));border-color:rgba(100,255,218,.3);color:var(--cyan)}
+.btn-p:hover{box-shadow:0 0 20px rgba(100,255,218,.15)}
+.btn-d{background:transparent;border-color:rgba(231,76,60,.3);color:var(--red);font-size:11px;padding:4px 10px}
+.btn-s{background:transparent;border-color:var(--border2);color:var(--sub);font-size:11px;padding:4px 10px}
+.btn-g{background:linear-gradient(135deg,rgba(255,215,0,.15),rgba(255,140,0,.1));border-color:rgba(255,215,0,.3);color:var(--gold)}
+.btn-v{background:linear-gradient(135deg,rgba(187,134,252,.15),rgba(100,255,218,.1));border-color:rgba(187,134,252,.3);color:var(--purple)}
+.inp{background:rgba(100,255,218,.06);border:1px solid var(--border2);color:var(--txt);padding:7px 10px;border-radius:6px;font-size:13px;outline:none;font-family:var(--mono);width:100%}
+.inp:focus{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(100,255,218,.1)}
+select.inp{cursor:pointer;font-family:var(--sans)}
+textarea.inp{font-family:var(--sans);resize:vertical}
+.tab{padding:5px 12px;border-radius:6px;font-size:12px;cursor:pointer;border:1px solid transparent;transition:all .2s;background:transparent;color:var(--sub);font-family:var(--sans)}
+.tab.on{background:rgba(100,255,218,.15);border-color:rgba(100,255,218,.3);color:var(--cyan);font-weight:700}
+.mtab{padding:5px 8px;border-radius:8px;display:inline-flex;align-items:center;gap:4px;cursor:pointer;border:1px solid rgba(100,255,218,.06);transition:all .2s;font-size:11px}
+.mtab:hover{background:rgba(100,255,218,.1)}
+.mtab.on{background:rgba(100,255,218,.12);border-color:rgba(100,255,218,.25)}
+.mtab.half{border-color:rgba(255,215,0,.3);background:rgba(255,215,0,.08)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.gridf{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.flex{display:flex}.gap4{gap:4px}.gap6{gap:6px}.gap8{gap:8px}.gap10{gap:10px}.gap12{gap:12px}
+.wrap{flex-wrap:wrap}.center{align-items:center}.between{justify-content:space-between}
+.mono{font-family:var(--mono)}.bold{font-weight:700}.f10{font-size:10px}.f11{font-size:11px}.f12{font-size:12px}.f13{font-size:13px}.f14{font-size:14px}.f16{font-size:16px}
+.sell-tag{background:rgba(255,215,0,.15);color:var(--gold);padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(80px);background:rgba(0,0,0,.9);color:var(--cyan);padding:10px 24px;border-radius:10px;font-size:13px;font-weight:600;z-index:999;transition:transform .3s;border:1px solid rgba(100,255,218,.2);pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+@media(max-width:600px){.grid2,.grid3{grid-template-columns:1fr}.gridf{grid-template-columns:1fr 1fr}.mtab{padding:4px 6px;font-size:10px}}
+</style>
+</head>
+<body>
+<div id="toast" class="toast"></div>
+<div style="padding:20px 16px 12px;border-bottom:1px solid var(--border);background:rgba(10,15,26,.92);backdrop-filter:blur(12px);position:sticky;top:0;z-index:10">
+<div style="max-width:960px;margin:0 auto">
+  <div class="flex between center" style="margin-bottom:8px">
+    <div>
+      <h1 style="font-size:19px;font-weight:900;background:linear-gradient(135deg,#64ffda,#00bcd4,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent">⚔️ 台股作戰計畫 2026-2027</h1>
+      <p style="color:var(--sub);font-size:11px" id="headerSub"></p>
+    </div>
+    <button class="btn btn-d" onclick="if(confirm('重置所有？')){D={tasks:{},principles:{},holdings:JSON.parse(JSON.stringify(DH)),wr:[],ms:[],pt:[]};sv();render();toast('🔄 已重置')}">重置</button>
+  </div>
+  <div class="flex center gap10" style="margin-bottom:8px">
+    <div style="flex:1;height:6px;background:rgba(100,255,218,.08);border-radius:4px;overflow:hidden"><div id="tBar" style="height:100%;border-radius:4px;background:linear-gradient(90deg,#1e88e5,#64ffda);transition:width .5s;animation:barGrow .8s ease-out"></div></div>
+    <span id="tTxt" class="mono bold" style="color:var(--cyan);font-size:12px"></span>
+  </div>
+  <div class="flex gap4 wrap" id="vTabs" style="margin-bottom:6px"></div>
+  <div class="flex gap4 wrap" id="mTabs"></div>
+</div></div>
+<div id="C" style="max-width:960px;margin:0 auto;padding:14px 16px 80px"></div>
+<script>
+// === DATA ===
+const DH=[
+  {id:'h1',name:'啟碁',code:'6285',shares:2,unit:'張',cost:177.25,target:'195',strat:'低軌衛星核心'},
+  {id:'h2',name:'華通',code:'2313',shares:1,unit:'張',cost:177,target:'210',strat:'衛星板龍頭'},
+  {id:'h3',name:'南亞科',code:'2408',shares:1,unit:'張',cost:310,target:'348',strat:'DRAM超循環'},
+  {id:'h4',name:'旺宏',code:'2337',shares:1,unit:'張',cost:89.4,target:'121',strat:'停利115-120'},
+  {id:'h5',name:'華邦電',code:'2344',shares:2,unit:'張',cost:116.5,target:'155',strat:'上檔最大'},
+  {id:'h6',name:'台灣50',code:'0050',shares:1,unit:'張',cost:74.1,target:'大盤',strat:'永遠不賣'},
+  {id:'h7',name:'高股息',code:'0056',shares:1,unit:'張',cost:38.04,target:'配息',strat:'永遠不賣'},
+  {id:'h8',name:'鑫科',code:'3663',shares:2,unit:'張',cost:69,target:'78',strat:'觀察3個月'},
+];
+const PR=[
+  {id:'p1',t:'不追漲停，等拉回再接'},{id:'p2',t:'不在虧損狀態下換股'},{id:'p3',t:'每月換股≤1次'},
+  {id:'p4',t:'定存不動，除非崩盤加碼'},{id:'p5',t:'看盤：每週1-2次'},{id:'p6',t:'用賺到的錢開新倉'},
+];
+const MO=[
+  {id:'m1',n:1,r:'2/12～3/11',t:'休息＋觀察',ic:'🌙',h:1,sec:[{st:'📅 春節＋開紅盤',tk:[{id:'m1t1',t:'追蹤美光/輝達/SpaceX/關稅/韓股',n:'休市功課'},{id:'m1t2',t:'開紅盤前三天不交易',n:'最重要！'},{id:'m1t3',t:'記錄開盤表現與法人動向',n:''},{id:'m1t4',t:'首週交易後綜合評估',n:''},{id:'m1t5',t:'月存2-3萬入帳戶',n:''}]}]},
+  {id:'m2',n:2,r:'3/12～4/11',t:'財報驗證',ic:'📊',h:1,sec:[{st:'🔍 Q1財報',tk:[{id:'m2t1',t:'華邦電EPS>3元？',n:'超過→130-140'},{id:'m2t2',t:'南亞科Q1營收驗證',n:''},{id:'m2t3',t:'啟碁Q1營收百億+',n:''},{id:'m2t4',t:'鑫科3個月驗證',n:''},{id:'m2t5',t:'旺宏停利決策115-120',n:''}]}]},
+  {id:'m3',n:3,r:'4/12～5/11',t:'執行期',ic:'⚡',h:1,sec:[{st:'📋 執行調整',tk:[{id:'m3t1',t:'財報好→不動',n:''},{id:'m3t2',t:'旺宏停利→佈局新標的',n:''},{id:'m3t3',t:'鑫科無改善→考慮汰換',n:'唯一允許換股'}]}]},
+  {id:'m4',n:4,r:'5/12～6/11',t:'配息再投入',ic:'💵',h:1,sec:[{st:'📥 配息',tk:[{id:'m4t1',t:'收取0050/0056/其他配息',n:''},{id:'m4t2',t:'配息投入零股',n:''},{id:'m4t3',t:'評估衛星爆發進度',n:''}]}]},
+  {id:'m5',n:5,r:'6/12～7/11',t:'中期檢視',ic:'🔍',h:1,sec:[{st:'📋 半年檢',tk:[{id:'m5t1',t:'計算前6個月總報酬',n:''},{id:'m5t2',t:'比較：記憶體vs衛星vsPCB',n:''},{id:'m5t3',t:'華邦電140+→賣1張',n:''}]}]},
+  {id:'m6',n:6,r:'7/12～8/11',t:'🏆 H1結算',ic:'🏆',h:1,isSt:1,sec:[{st:'📊 上半年結算',tk:[{id:'m6t1',t:'完成H1半年自動結算',n:''},{id:'m6t2',t:'匯出H1報表給Claude',n:''},{id:'m6t3',t:'制定下半年策略',n:''}]}]},
+  {id:'m7',n:7,r:'8/12～9/11',t:'H2啟動',ic:'🚀',h:2,sec:[{st:'📋 H2開局',tk:[{id:'m7t1',t:'依H1結論調整持股',n:''},{id:'m7t2',t:'檢視Q2財報',n:''},{id:'m7t3',t:'評估加碼/減碼',n:''}]}]},
+  {id:'m8',n:8,r:'9/12～10/11',t:'Q3佈局',ic:'📈',h:2,sec:[{st:'📋 秋季佈局',tk:[{id:'m8t1',t:'蘋果新機效應追蹤',n:''},{id:'m8t2',t:'記憶體Q4展望',n:''},{id:'m8t3',t:'年底作帳佈局',n:''}]}]},
+  {id:'m9',n:9,r:'10/12～11/11',t:'年底作帳',ic:'🎄',h:2,sec:[{st:'📋 作帳',tk:[{id:'m9t1',t:'追蹤投信作帳標的',n:''},{id:'m9t2',t:'評估停利或續抱',n:''},{id:'m9t3',t:'Q3財報驗證',n:''}]}]},
+  {id:'m10',n:10,r:'11/12～12/11',t:'獲利鎖定',ic:'🔒',h:2,sec:[{st:'📋 年末',tk:[{id:'m10t1',t:'鎖定獲利減少曝險',n:''},{id:'m10t2',t:'規劃節稅',n:''},{id:'m10t3',t:'整理年度心得',n:''}]}]},
+  {id:'m11',n:11,r:'12/12～1/11',t:'封關準備',ic:'🧧',h:2,sec:[{st:'📋 封關前',tk:[{id:'m11t1',t:'評估封關前減碼',n:''},{id:'m11t2',t:'規劃過年追蹤清單',n:''},{id:'m11t3',t:'準備H2結算',n:''}]}]},
+  {id:'m12',n:12,r:'1/12～2/6',t:'封關決策',ic:'🧧',h:2,sec:[{st:'📋 農曆封關前',tk:[{id:'m12t1',t:'封關前記錄所有持股現價',n:'封關前紀錄'},{id:'m12t2',t:'逐檔決策：了結 or 續抱',n:'每檔都要決定'},{id:'m12t3',t:'記錄封關前國際盤勢',n:''},{id:'m12t4',t:'過年期間追蹤清單確認',n:''}]}]},
+  {id:'m13',n:13,r:'2/7～2/11',t:'🏆 年度總結算',ic:'🏆',h:2,isSt:1,sec:[{st:'📊 全年度結算',tk:[{id:'m13t1',t:'完成年度自動結算',n:''},{id:'m13t2',t:'匯出年報給Claude',n:''},{id:'m13t3',t:'制定2027年度計畫',n:''},{id:'m13t4',t:'回顧13個月投資紀律',n:''}]}]},
+];
+const GL=[
+  {id:'g1',nm:'美光',tk:'MU',ct:'🇺🇸',nt:'影響南亞科/華邦電/旺宏'},
+  {id:'g2',nm:'輝達',tk:'NVDA',ct:'🇺🇸',nt:'影響CoWoS族群'},
+  {id:'g3',nm:'SK海力士',tk:'000660.KS',ct:'🇰🇷',nt:'HBM/DRAM報價風向球'},
+  {id:'g4',nm:'三星電子',tk:'005930.KS',ct:'🇰🇷',nt:'DRAM/NAND市佔第一'},
+  {id:'g5',nm:'費半',tk:'SOX',ct:'🇺🇸',nt:'半導體景氣指標'},
+  {id:'g6',nm:'SpaceX',tk:'非上市',ct:'🚀',nt:'低軌衛星催化劑'},
+];
+const GI=[{g:'S',c:'#ffd700',d:'完美：紀律100%、正報酬、零衝動'},{g:'A',c:'#00e676',d:'優良：紀律佳、獲利/持平、≤1換股'},{g:'B',c:'#64ffda',d:'及格：小虧可控、沒亂動'},{g:'C',c:'#ff8c00',d:'檢討：違規1-2次、衝動交易'},{g:'D',c:'#e74c3c',d:'失控：多次違規、情緒化操作'}];
+
+// === STATE ===
+const SK='bp2026v5';
+let D={tasks:{},principles:{},holdings:[],wr:[],ms:[],pt:[]};
+let cV='plan',cM='m1',_gr='';
+function ld(){try{const s=localStorage.getItem(SK);if(s){D=JSON.parse(s);if(!D.holdings?.length)D.holdings=JSON.parse(JSON.stringify(DH));D.wr=D.wr||[];D.ms=D.ms||[];D.pt=D.pt||[]}}catch(e){} if(!D.holdings?.length)D.holdings=JSON.parse(JSON.stringify(DH))}
+function sv(){localStorage.setItem(SK,JSON.stringify(D))}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function dow(d){return['日','一','二','三','四','五','六'][new Date(d).getDay()]}
+function fN(n){return n>=0?'+'+n.toLocaleString():n.toLocaleString()}
+function mul(s){return s.unit==='股'?s.shares:s.shares*1000}
+
+// === PROGRESS ===
+function mProg(m){let t=0,d=0;m.sec.forEach(s=>s.tk.forEach(x=>{t++;if(D.tasks[x.id])d++}));return{t,d,p:t?Math.round(d/t*100):0}}
+function tProg(){let t=0,d=0;MO.forEach(m=>{const p=mProg(m);t+=p.t;d+=p.d});return{t,d,p:t?Math.round(d/t*100):0}}
+function hStats(){const h=D.holdings.filter(x=>!x.sold);return{cnt:h.length,z:h.reduce((s,x)=>s+(x.unit==='股'?0:x.shares),0),o:h.reduce((s,x)=>s+(x.unit==='股'?x.shares:0),0),tc:h.reduce((s,x)=>s+x.cost*mul(x),0)}}
+
+// === RENDER ===
+function render(){
+  const tp=tProg();
+  document.getElementById('tBar').style.width=tp.p+'%';
+  document.getElementById('tTxt').textContent=`${tp.d}/${tp.t}（${tp.p}%）`;
+  const hs=hStats();
+  document.getElementById('headerSub').textContent=`2026/2～2027/2（13個月）｜Sone Wang｜${hs.z}張${hs.o?'+'+hs.o+'股':''}／${hs.cnt}檔`;
+  const vs=[['plan','📋作戰'],['holdings','💼持股'],['tracker','📝週紀錄'],['global','🌍國際'],['settle','💰月結算'],['profit','💎了結'],['half','📊半年報'],['targets','🎯目標']];
+  document.getElementById('vTabs').innerHTML=vs.map(([k,l])=>`<button class="tab ${cV===k?'on':''}" onclick="cV='${k}';render()">${l}</button>`).join('');
+  const mt=document.getElementById('mTabs');
+  if(cV==='plan'){mt.style.display='flex';
+    mt.innerHTML=[1,2].map(half=>`<span class="f10 bold" style="color:${half===1?'var(--gold)':'var(--purple)'};padding:3px 5px">${half===1?'H1':'H2'}</span>`+MO.filter(m=>m.h===half).map(m=>{const p=mProg(m);return`<div class="mtab ${cM===m.id?'on':''} ${m.isSt?'half':''}" onclick="cM='${m.id}';render()"><span style="font-size:12px">${m.ic}</span><span style="color:${cM===m.id?'var(--cyan)':'var(--sub)'};font-weight:${cM===m.id?700:400}">${m.n}</span>${p.d?`<span class="mono" style="font-size:8px;padding:1px 4px;border-radius:8px;background:${p.p===100?'rgba(0,230,118,.2)':'rgba(100,255,218,.1)'};color:${p.p===100?'var(--green)':'var(--cyan)'}">${p.p}%</span>`:''}</div>`}).join('')).join('')}
+  else mt.style.display='none';
+  const c=document.getElementById('C');c.innerHTML='';
+  ({plan:rPlan,holdings:rHold,tracker:rTrack,global:rGlob,settle:rSettl,profit:rProf,half:rHalf,targets:rTarg})[cV]?.(c);
+}
+
+// === PLAN ===
+function rPlan(c){
+  const m=MO.find(x=>x.id===cM);if(!m)return;const mp=mProg(m);
+  let h=`<div class="fade"><div style="margin-bottom:14px">
+    <div class="flex center gap8"><h2 style="font-size:17px;font-weight:700">${m.ic} 第${m.n}個月：${m.r}</h2>${m.isSt?'<span class="sell-tag">結算月</span>':''}<span style="padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;background:${m.h===1?'rgba(255,215,0,.1)':'rgba(187,134,252,.1)'};color:${m.h===1?'var(--gold)':'var(--purple)'}">H${m.h}</span></div>
+    <p style="font-size:14px;background:linear-gradient(90deg,var(--cyan),var(--cyan2));-webkit-background-clip:text;-webkit-text-fill-color:transparent">「${m.t}」</p>
+    <div class="flex center gap8" style="margin-top:6px"><div style="flex:1;max-width:160px;height:4px;background:rgba(100,255,218,.08);border-radius:3px;overflow:hidden"><div style="height:100%;width:${mp.p}%;background:${mp.p===100?'var(--green)':'var(--cyan)'}"></div></div><span class="mono f11" style="color:var(--sub)">${mp.d}/${mp.t}</span></div></div>`;
+  m.sec.forEach(sec=>{
+    h+=`<div class="card"><div class="card-head"><h3>${sec.st}</h3></div>`;
+    sec.tk.forEach(tk=>{const dn=D.tasks[tk.id];const nt=D.tasks[tk.id+'_n']||tk.n||'';
+      h+=`<div class="task-row" style="opacity:${dn?.5:1}"><div class="chk ${dn?'done':''}" onclick="D.tasks['${tk.id}']=!D.tasks['${tk.id}'];sv();render()">${dn?'<span style="color:var(--green);font-size:13px;font-weight:900">✓</span>':''}</div><div style="flex:1"><p class="f13" style="color:${dn?'var(--sub)':'#d0dae4'};text-decoration:${dn?'line-through':'none'}">${tk.t}</p><p class="f11" style="color:var(--sub2);margin-top:2px;cursor:pointer" onclick="eN('${tk.id}')" id="n_${tk.id}">${nt||'＋備註'}</p></div></div>`});
+    h+=`</div>`;
+  });
+  if(cM==='m1'){h+=`<div class="card" style="border-color:rgba(231,76,60,.15);background:rgba(231,76,60,.03)"><div class="card-head" style="background:rgba(231,76,60,.06)"><h3 style="color:var(--red)">🛡️ 核心原則</h3></div>`;
+    PR.forEach(p=>{const d=D.principles[p.id];h+=`<div class="task-row"><div class="chk red ${d?'done':''}" onclick="D.principles['${p.id}']=!D.principles['${p.id}'];sv();render()">${d?'<span style="color:var(--red);font-size:13px;font-weight:900">✓</span>':''}</div><p class="f13" style="color:#e0a0a0;font-weight:500">${p.t}</p></div>`});h+=`</div>`}
+  h+=`</div>`;c.innerHTML=h;
+}
+function eN(id){const el=document.getElementById('n_'+id);if(!el)return;const cur=D.tasks[id+'_n']||'';
+  el.innerHTML=`<div class="flex gap6"><input class="inp" id="ni_${id}" value="${esc(cur)}" style="flex:1;font-size:12px;padding:4px 8px" onkeydown="if(event.key==='Enter'){D.tasks['${id}_n']=this.value;sv();render()}"><button class="btn btn-p" style="padding:3px 8px;font-size:11px" onclick="D.tasks['${id}_n']=document.getElementById('ni_${id}').value;sv();render()">存</button><button class="btn btn-s" onclick="render()">✕</button></div>`;document.getElementById('ni_'+id)?.focus()}
+
+// === HOLDINGS ===
+function rHold(c){
+  const act=D.holdings.filter(x=>!x.sold),sold=D.holdings.filter(x=>x.sold),hs=hStats();
+  let h=`<div class="fade"><div class="flex between center wrap gap8" style="margin-bottom:14px"><div><h2 class="f16 bold">💼 持股管理</h2><p class="f12" style="color:var(--sub)">${hs.cnt}檔｜${hs.z}張${hs.o?'+'+hs.o+'股':''}｜成本$${hs.tc.toLocaleString()}</p></div><button class="btn btn-p" onclick="sAH()">＋ 新增</button></div><div id="ahA"></div>`;
+  act.forEach(s=>{h+=`<div class="card" style="padding:12px 16px"><div class="flex between center wrap gap8"><div style="min-width:120px"><p class="f14 bold">${s.name} <span class="f11" style="color:var(--sub2)">${s.code}</span></p><p class="mono f11" style="color:var(--sub2)">${s.shares}${s.unit}｜$${s.cost}｜目標$${s.target||'—'}</p><p class="f11" style="color:var(--sub3)">${s.strat||''}</p></div><div class="flex gap6"><button class="btn btn-s" onclick="eH('${s.id}')">✏️</button><button class="btn btn-d" onclick="dH('${s.id}')">🗑️</button></div></div></div>`});
+  if(sold.length){h+=`<h3 class="f13" style="color:var(--sub);margin:14px 0 8px">📤 已了結</h3>`;sold.forEach(s=>h+=`<div class="card" style="padding:8px 16px;opacity:.5"><p class="f12" style="text-decoration:line-through">${s.name} ${s.code} ${s.shares}${s.unit} <span class="sell-tag">已了結</span></p></div>`)}
+  h+=`</div>`;c.innerHTML=h;
+}
+function sAH(){const a=document.getElementById('ahA');if(a.innerHTML){a.innerHTML='';return}
+  a.innerHTML=`<div class="card" style="padding:14px;border-color:rgba(100,255,218,.2);margin-bottom:14px"><h3 class="f14 bold" style="color:var(--cyan);margin-bottom:10px">＋ 新增持股</h3><div class="grid3" style="margin-bottom:10px"><div><label class="f11" style="color:var(--sub)">名稱</label><input class="inp" id="an" placeholder="啟碁"></div><div><label class="f11" style="color:var(--sub)">代號</label><input class="inp" id="ac" placeholder="6285"></div><div><label class="f11" style="color:var(--sub)">單位</label><select class="inp" id="au"><option value="張">張</option><option value="股">股</option></select></div></div><div class="grid3" style="margin-bottom:10px"><div><label class="f11" style="color:var(--sub)">數量</label><input class="inp" id="as" type="number" value="1"></div><div><label class="f11" style="color:var(--sub)">成本</label><input class="inp" id="ap" type="number" step="0.01"></div><div><label class="f11" style="color:var(--sub)">目標</label><input class="inp" id="at"></div></div><div style="margin-bottom:10px"><input class="inp" id="ast" placeholder="策略備註"></div><div class="flex gap8"><button class="btn btn-p" style="flex:1" onclick="aH()">💾 新增</button><button class="btn btn-d" onclick="document.getElementById('ahA').innerHTML=''">取消</button></div></div>`}
+function aH(){const n=document.getElementById('an').value,cd=document.getElementById('ac').value;if(!n||!cd)return toast('⚠️ 填名稱和代號');D.holdings.push({id:'h_'+Date.now(),name:n,code:cd,shares:parseFloat(document.getElementById('as').value)||1,unit:document.getElementById('au').value,cost:parseFloat(document.getElementById('ap').value)||0,target:document.getElementById('at').value,strat:document.getElementById('ast').value});sv();render();toast('✅ 已新增'+n)}
+function eH(id){const s=D.holdings.find(x=>x.id===id);if(!s)return;const ns=prompt(`${s.name} ${s.shares}${s.unit}\n新數量（0=刪除）:`,s.shares);if(ns===null)return;if(parseFloat(ns)<=0)return dH(id);s.shares=parseFloat(ns);const nc=prompt('成本均價:',s.cost);if(nc!==null)s.cost=parseFloat(nc)||s.cost;const nt=prompt('目標價:',s.target);if(nt!==null)s.target=nt;const nst=prompt('策略:',s.strat);if(nst!==null)s.strat=nst;sv();render();toast('✅ 已更新'+s.name)}
+function dH(id){if(!confirm('確定刪除？'))return;D.holdings=D.holdings.filter(x=>x.id!==id);sv();render();toast('🗑️ 已刪除')}
+
+// === PROFIT TAKE ===
+function rProf(c){
+  const tr=D.pt.reduce((s,r)=>s+(r.pnl||0),0);
+  let h=`<div class="fade"><div class="flex between center wrap gap8" style="margin-bottom:14px"><div><h2 class="f16 bold">💎 獲利了結</h2><p class="f12" style="color:var(--sub)">賣出 → 自動算實現損益</p></div><button class="btn btn-g" onclick="sPF()">＋ 新增</button></div><div id="pfA"></div>`;
+  if(D.pt.length)h+=`<div style="padding:10px 14px;border-radius:8px;background:${tr>=0?'rgba(0,230,118,.06)':'rgba(255,82,82,.06)'};border:1px solid ${tr>=0?'rgba(0,230,118,.15)':'rgba(255,82,82,.15)'};margin-bottom:14px"><span class="f12" style="color:var(--sub)">累計實現損益：</span><span class="mono bold f16" style="color:${tr>=0?'var(--green)':'var(--red)'}">${fN(tr)}</span></div>`;
+  if(!D.pt.length)h+=`<div style="text-align:center;padding:40px;color:var(--sub4)"><p style="font-size:48px">💎</p><p class="f14">尚無了結紀錄</p></div>`;
+  else[...D.pt].reverse().forEach(r=>{const ps=r.pnl>=0;h+=`<div class="card" style="padding:12px"><div class="flex between center" style="margin-bottom:6px"><div class="flex center gap8"><span class="sell-tag">${r.act||'賣出'}</span><span class="bold f13">${r.nm} ${r.cd}</span><span class="mono f11" style="color:var(--sub)">${r.dt}</span></div><button class="btn btn-d" onclick="if(confirm('刪除？')){D.pt=D.pt.filter(x=>x.id!=='${r.id}');sv();render()}">刪除</button></div><div class="gridf" style="gap:6px">${[['數量',r.qty+(r.ut||'張')],['成本','$'+r.cp],['賣價','$'+r.sp],['損益',fN(r.pnl),1]].map(([l,v,hl])=>`<div style="padding:4px 8px;border-radius:6px;background:${hl?(ps?'rgba(0,230,118,.08)':'rgba(255,82,82,.08)'):'rgba(100,255,218,.04)'}"><p class="f10" style="color:var(--sub2)">${l}</p><p class="mono bold f12" style="color:${hl?(ps?'var(--green)':'var(--red)'):'var(--txt)'}">${v}</p></div>`).join('')}</div>${r.memo?`<p class="f11" style="color:var(--sub3);margin-top:6px;padding:4px 8px;background:rgba(100,255,218,.03);border-radius:4px">💭 ${esc(r.memo)}</p>`:''}</div>`});
+  h+=`</div>`;c.innerHTML=h;
+}
+function sPF(){const a=document.getElementById('pfA');if(a.innerHTML){a.innerHTML='';return}
+  const act=D.holdings.filter(x=>!x.sold),td=new Date().toISOString().slice(0,10);
+  a.innerHTML=`<div class="card" style="padding:14px;border-color:rgba(255,215,0,.2);margin-bottom:14px"><h3 class="f14 bold" style="color:var(--gold);margin-bottom:10px">💎 新增了結</h3><div class="grid2" style="margin-bottom:10px"><div><label class="f11" style="color:var(--sub)">持股</label><select class="inp" id="pfs" onchange="pFC()"><option value="">選擇</option>${act.map(s=>`<option value="${s.id}">${s.name}(${s.code}) ${s.shares}${s.unit} @${s.cost}</option>`).join('')}<option value="x">📝自訂</option></select></div><div><label class="f11" style="color:var(--sub)">日期</label><input type="date" class="inp" id="pfd" value="${td}"></div></div><div id="pfC" style="display:none" class="grid3" style="margin-bottom:10px"><div><label class="f11" style="color:var(--sub)">名稱</label><input class="inp" id="pfcn"></div><div><label class="f11" style="color:var(--sub)">代號</label><input class="inp" id="pfcc"></div><div><label class="f11" style="color:var(--sub)">成本</label><input class="inp" id="pfcp" type="number" step="0.01"></div></div><div class="grid3" style="margin-bottom:10px"><div><label class="f11" style="color:var(--sub)">賣出數量</label><input class="inp" id="pfq" type="number" value="1"></div><div><label class="f11" style="color:var(--sub)">單位</label><select class="inp" id="pfu"><option value="張">張</option><option value="股">股</option></select></div><div><label class="f11" style="color:var(--sub)">賣出價</label><input class="inp" id="pfsp" type="number" step="0.01" oninput="cPF()"></div></div><div style="padding:8px 12px;border-radius:8px;background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.12);margin-bottom:10px" class="flex between center"><span class="f12" style="color:var(--sub)">預估損益：</span><span class="mono bold f16" id="pfPnl" style="color:var(--sub)">—</span></div><div style="margin-bottom:10px"><textarea class="inp" id="pfm" rows="2" placeholder="為什麼賣？"></textarea></div><div class="flex gap8"><button class="btn btn-g" style="flex:1" onclick="savPF()">💎 確認了結</button><button class="btn btn-d" onclick="document.getElementById('pfA').innerHTML=''">取消</button></div></div>`}
+function pFC(){const v=document.getElementById('pfs').value;document.getElementById('pfC').style.display=v==='x'?'grid':'none';if(v&&v!=='x'){const s=D.holdings.find(x=>x.id===v);if(s){document.getElementById('pfu').value=s.unit;document.getElementById('pfq').value=s.shares}}cPF()}
+function cPF(){const sid=document.getElementById('pfs').value;let cost=0;if(sid==='x')cost=parseFloat(document.getElementById('pfcp')?.value)||0;else{const s=D.holdings.find(x=>x.id===sid);if(s)cost=s.cost}const sp=parseFloat(document.getElementById('pfsp').value)||0,qty=parseFloat(document.getElementById('pfq').value)||0,ut=document.getElementById('pfu').value,m=ut==='股'?1:1000,pnl=Math.round((sp-cost)*qty*m);const el=document.getElementById('pfPnl');if(sp&&cost&&qty){el.textContent=fN(pnl);el.style.color=pnl>=0?'var(--green)':'var(--red)'}else{el.textContent='—';el.style.color='var(--sub)'}}
+function savPF(){const sid=document.getElementById('pfs').value;let nm='',cd='',cp=0;if(sid==='x'){nm=document.getElementById('pfcn').value;cd=document.getElementById('pfcc').value;cp=parseFloat(document.getElementById('pfcp').value)||0}else{const s=D.holdings.find(x=>x.id===sid);if(!s)return toast('⚠️請選擇');nm=s.name;cd=s.code;cp=s.cost}const qty=parseFloat(document.getElementById('pfq').value)||0,ut=document.getElementById('pfu').value,sp=parseFloat(document.getElementById('pfsp').value)||0,m=ut==='股'?1:1000,pnl=Math.round((sp-cp)*qty*m);if(!nm||!sp)return toast('⚠️請填完');D.pt.push({id:'pt_'+Date.now(),dt:document.getElementById('pfd').value,nm,cd,qty,ut,cp,sp,pnl,memo:document.getElementById('pfm').value,act:pnl>=0?'獲利了結':'停損了結'});if(sid&&sid!=='x'){const s=D.holdings.find(x=>x.id===sid);if(s){if(qty>=s.shares)s.sold=true;else s.shares-=qty}}sv();render();toast(pnl>=0?'💎 獲利了結！':'🛑 停損了結')}
+
+// === WEEKLY TRACKER ===
+function rTrack(c){
+  const act=D.holdings.filter(x=>!x.sold);
+  let h=`<div class="fade"><div class="flex between center wrap gap8" style="margin-bottom:14px"><div><h2 class="f16 bold">📝 每週紀錄</h2><p class="f12" style="color:var(--sub)">週一開盤＋週五收盤＋封關前</p></div><button class="btn btn-p" onclick="sRF()">＋ 新增</button></div><div id="rfA"></div>`;
+  if(!D.wr.length)h+=`<div style="text-align:center;padding:40px;color:var(--sub4)"><p style="font-size:48px">📝</p><p class="f14">尚無紀錄</p></div>`;
+  else[...D.wr].reverse().forEach(r=>{const ty=r.ty||r.tp||'fri';const iM=ty==='mon';const iC=ty==='close';
+    const bc=iC?'rgba(255,215,0,.1)':iM?'rgba(0,230,118,.1)':'rgba(255,82,82,.1)';
+    const lbBg=iC?'rgba(255,215,0,.15)':iM?'rgba(0,230,118,.15)':'rgba(255,82,82,.15)';
+    const lbC=iC?'var(--gold)':iM?'var(--green)':'var(--red)';
+    const lbT=iC?'🧧封關前':iM?'🟢週一':'🔴週五';
+    h+=`<div class="card" style="padding:12px;border-color:${bc}"><div class="flex between center" style="margin-bottom:6px"><div class="flex center gap8"><span style="padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;background:${lbBg};color:${lbC}">${lbT}</span><span class="mono bold f13">${r.dt}（${dow(r.dt)}）</span></div><div class="flex gap6"><button class="btn btn-s" onclick="eWR('${r.id}')">✏️編輯</button><button class="btn btn-d" onclick="if(confirm('刪除？')){D.wr=D.wr.filter(x=>x.id!=='${r.id}');sv();render()}">刪除</button></div></div>`;
+    const hf=r.hs?.filter(x=>x.p)||[];const hasDec=hf.some(x=>x.dec);
+    if(hf.length){h+=`<div style="overflow-x:auto;margin-bottom:6px"><table style="width:100%;border-collapse:collapse;font-size:11px"><tr style="border-bottom:1px solid rgba(100,255,218,.08)"><th style="padding:3px 6px;color:var(--sub2);text-align:left">股票</th><th style="padding:3px;text-align:center;color:var(--sub2)">量</th><th style="padding:3px;text-align:center;color:var(--sub2)">成本</th><th style="padding:3px;text-align:center;color:var(--sub2)">現價</th><th style="padding:3px;text-align:right;color:var(--sub2)">損益</th>${hasDec?'<th style="padding:3px;text-align:center;color:var(--gold)">決策</th>':''}</tr>`;
+      const decC={'續抱':'var(--green)','了結':'var(--gold)','觀察':'var(--cyan)','加碼':'var(--blue)','減碼':'var(--orange)'};
+      hf.forEach(x=>{const ng=String(x.pnl).startsWith('-');h+=`<tr style="border-bottom:1px solid rgba(100,255,218,.03)"><td style="padding:2px 6px;color:var(--sub3)">${x.nm}</td><td class="mono" style="text-align:center;color:var(--cyan)">${x.sh}${x.ut||'張'}</td><td class="mono" style="text-align:center;color:var(--sub2)">${x.c||''}</td><td class="mono" style="text-align:center">${x.p}</td><td class="mono bold" style="text-align:right;color:${ng?'var(--red)':'var(--green)'}">${x.pnl||''}</td>${hasDec?`<td style="text-align:center;font-weight:700;font-size:10px;color:${decC[x.dec]||'var(--sub)'}">${x.dec||''}</td>`:''}</tr>`});h+=`</table></div>`}
+    const gf=r.gl?.filter(x=>x.p)||[];
+    if(gf.length){h+=`<div class="flex wrap gap4" style="margin-bottom:6px">`;gf.forEach(x=>h+=`<div style="padding:2px 8px;border-radius:4px;font-size:10px;background:rgba(255,140,0,.06);border:1px solid rgba(255,140,0,.08)"><span style="color:var(--orange)">${x.nm}</span> <span class="mono">${x.p}</span>${x.ch?` <span style="color:${String(x.ch).startsWith('-')?'var(--red)':'var(--green)'}">${x.ch}</span>`:''}</div>`);h+=`</div>`}
+    if(r.tv||r.tp){h+=`<div class="flex gap10 f11" style="padding:4px 8px;border-radius:4px;background:rgba(100,255,218,.03)">`;if(r.tv)h+=`<span style="color:var(--sub)">市值:<span class="mono bold" style="color:var(--cyan)">${r.tv}</span></span>`;if(r.tp)h+=`<span style="color:var(--sub)">損益:<span class="mono bold" style="color:${String(r.tp).startsWith('-')?'var(--red)':'var(--green)'}">${r.tp}</span></span>`;if(r.tpc)h+=`<span style="color:var(--sub)">報酬:<span class="mono bold" style="color:${String(r.tpc).startsWith('-')?'var(--red)':'var(--green)'}">${r.tpc}</span></span>`;h+=`</div>`}
+    if(r.memo)h+=`<p class="f11" style="color:var(--sub3);margin-top:6px;padding:4px 8px;background:rgba(100,255,218,.03);border-radius:4px">💭 ${esc(r.memo)}</p>`;
+    h+=`</div>`;
+  });
+  h+=`</div>`;c.innerHTML=h;
+}
+function sRF(){const a=document.getElementById('rfA');if(a.innerHTML){a.innerHTML='';return}
+  const act=D.holdings.filter(x=>!x.sold),td=new Date().toISOString().slice(0,10);
+  let h=`<div class="card" style="padding:14px;border-color:rgba(100,255,218,.2);margin-bottom:14px"><h3 class="f14 bold" style="color:var(--cyan);margin-bottom:10px">📋 新增週紀錄</h3><div class="grid2" style="margin-bottom:10px"><div><label class="f11" style="color:var(--sub)">日期</label><input type="date" class="inp" id="rd" value="${td}"></div><div><label class="f11" style="color:var(--sub)">類型</label><select class="inp" id="rt"><option value="mon">🟢 週一</option><option value="fri">🔴 週五</option><option value="close">🧧 封關前</option></select></div></div>
+  <h4 class="f12" style="color:var(--sub3);margin-bottom:6px">🇹🇼 持股（輸入現價自動算）</h4><div style="overflow-x:auto;margin-bottom:8px"><table style="width:100%;border-collapse:collapse;font-size:12px"><tr style="border-bottom:1px solid rgba(100,255,218,.1)"><th style="padding:4px 6px;color:var(--sub);text-align:left">股票</th><th style="padding:4px;text-align:center;color:var(--sub)">量</th><th style="padding:4px;text-align:center;color:var(--sub)">成本</th><th style="padding:4px;text-align:left;color:var(--sub)">現價</th><th style="padding:4px;text-align:right;color:var(--sub)">損益</th><th style="padding:4px;text-align:center;color:var(--gold)">決策</th></tr>`;
+  act.forEach((s,i)=>h+=`<tr style="border-bottom:1px solid rgba(100,255,218,.04)"><td style="padding:4px 6px;font-weight:600">${s.name}<span class="f10" style="color:var(--sub2);margin-left:3px">${s.code}</span></td><td class="mono f11" style="text-align:center;color:var(--cyan)">${s.shares}${s.unit}</td><td class="mono f11" style="text-align:center;color:var(--sub3)">${s.cost}</td><td style="padding:3px 2px"><input class="inp" id="rh${i}" type="number" step="0.1" style="width:80px;padding:3px 6px;font-size:11px" oninput="cWR()"></td><td class="mono bold f11" style="text-align:right" id="rhp${i}">—</td><td style="padding:3px 2px"><select class="inp" id="rd${i}" style="width:68px;padding:2px 4px;font-size:10px;font-family:var(--sans)"><option value="">—</option><option value="續抱">續抱</option><option value="了結">了結</option><option value="觀察">觀察</option><option value="加碼">加碼</option><option value="減碼">減碼</option></select></td></tr>`);
+  h+=`</table></div><div id="rSum" class="flex between wrap gap8" style="padding:8px 12px;border-radius:8px;background:rgba(100,255,218,.06);border:1px solid rgba(100,255,218,.12);margin-bottom:10px;font-size:12px"><span>填入現價後自動計算</span></div>
+  <h4 class="f12" style="color:var(--orange);margin-bottom:6px">🌍 國際</h4><div class="gridf" style="margin-bottom:10px;gap:6px">`;
+  GL.filter(g=>g.tk!=='非上市').forEach((g,i)=>h+=`<div class="flex gap4 center"><span class="f10" style="color:var(--sub3);min-width:45px">${g.nm}</span><input class="inp" id="rg${i}p" placeholder="價格" style="width:60px;padding:3px 5px;font-size:11px"><input class="inp" id="rg${i}c" placeholder="%" style="width:45px;padding:3px 5px;font-size:11px"></div>`);
+  h+=`</div><div style="margin-bottom:10px"><textarea class="inp" id="rm" rows="2" placeholder="備忘錄..."></textarea></div><div class="flex gap8"><button class="btn btn-p" style="flex:1" onclick="savWR()">💾 儲存</button><button class="btn btn-d" onclick="document.getElementById('rfA').innerHTML=''">取消</button></div></div>`;
+  a.innerHTML=h;
+}
+function cWR(){const act=D.holdings.filter(x=>!x.sold);let tv=0,tc=0,all=true;
+  act.forEach((s,i)=>{const p=parseFloat(document.getElementById('rh'+i)?.value);const m=mul(s);tc+=s.cost*m;
+    if(p&&!isNaN(p)){tv+=p*m;const pnl=Math.round((p-s.cost)*m);document.getElementById('rhp'+i).innerHTML=`<span style="color:${pnl>=0?'var(--green)':'var(--red)'}">${fN(pnl)}</span>`}
+    else{all=false;document.getElementById('rhp'+i).textContent='—'}});
+  const sum=document.getElementById('rSum');
+  if(all){const pnl=Math.round(tv-tc),pct=((tv-tc)/tc*100).toFixed(1),pos=pnl>=0,cl=pos?'var(--green)':'var(--red)';
+    sum.innerHTML=`<span>市值:<span class="mono bold" style="color:var(--cyan)">$${tv.toLocaleString()}</span></span><span>成本:<span class="mono" style="color:var(--sub3)">$${tc.toLocaleString()}</span></span><span>損益:<span class="mono bold" style="color:${cl}">${fN(pnl)}</span></span><span>報酬:<span class="mono bold" style="color:${cl}">${pos?'+':''}${pct}%</span></span>`}
+}
+function savWR(){const act=D.holdings.filter(x=>!x.sold);let tv=0,tc=0;
+  const hs=act.map((s,i)=>{const p=parseFloat(document.getElementById('rh'+i)?.value)||0;const m=mul(s);tc+=s.cost*m;tv+=p*m;const pnl=Math.round((p-s.cost)*m);const dec=document.getElementById('rd'+i)?.value||'';return{cd:s.code,nm:s.name,sh:s.shares,ut:s.unit,c:s.cost,p:p||'',pnl:pnl?fN(pnl):'',dec}});
+  const tpnl=Math.round(tv-tc),tpc=tc?((tv-tc)/tc*100).toFixed(1):'0';
+  D.wr.push({id:'wr_'+Date.now(),dt:document.getElementById('rd').value,ty:document.getElementById('rt').value,hs,
+    gl:GL.filter(g=>g.tk!=='非上市').map((g,i)=>({tk:g.tk,nm:g.nm,p:document.getElementById('rg'+i+'p')?.value||'',ch:document.getElementById('rg'+i+'c')?.value||''})),
+    tv:tv?'$'+tv.toLocaleString():'',tc:'$'+tc.toLocaleString(),tp:tpnl?fN(tpnl):'',tpc:tpc?(parseFloat(tpc)>=0?'+':'')+tpc+'%':'',memo:document.getElementById('rm').value});
+  sv();render();toast('✅ 已儲存');
+}
+function eWR(id){
+  const r=D.wr.find(x=>x.id===id);if(!r)return;
+  const act=D.holdings.filter(x=>!x.sold);
+  const rty=r.ty||r.tp||'fri';
+  let h=`<div class="card" style="padding:14px;border-color:rgba(100,255,218,.25);margin-bottom:14px"><h3 class="f14 bold" style="color:var(--cyan);margin-bottom:10px">✏️ 編輯週紀錄</h3>
+  <div class="grid2" style="margin-bottom:10px"><div><label class="f11" style="color:var(--sub)">日期</label><input type="date" class="inp" id="erd" value="${r.dt}"></div><div><label class="f11" style="color:var(--sub)">類型</label><select class="inp" id="ert"><option value="mon" ${rty==='mon'?'selected':''}>🟢 週一</option><option value="fri" ${rty==='fri'?'selected':''}>🔴 週五</option><option value="close" ${rty==='close'?'selected':''}>🧧 封關前</option></select></div></div>
+  <h4 class="f12" style="color:var(--sub3);margin-bottom:6px">🇹🇼 持股</h4><div style="overflow-x:auto;margin-bottom:8px"><table style="width:100%;border-collapse:collapse;font-size:12px"><tr style="border-bottom:1px solid rgba(100,255,218,.1)"><th style="padding:4px 6px;color:var(--sub);text-align:left">股票</th><th style="padding:4px;text-align:center;color:var(--sub)">量</th><th style="padding:4px;text-align:center;color:var(--sub)">成本</th><th style="padding:4px;text-align:left;color:var(--sub)">現價</th><th style="padding:4px;text-align:right;color:var(--sub)">損益</th><th style="padding:4px;text-align:center;color:var(--gold)">決策</th></tr>`;
+  act.forEach((s,i)=>{const old=r.hs?.find(x=>x.cd===s.code);const pv=old?.p||'';const dv=old?.dec||'';
+    h+=`<tr style="border-bottom:1px solid rgba(100,255,218,.04)"><td style="padding:4px 6px;font-weight:600">${s.name}<span class="f10" style="color:var(--sub2);margin-left:3px">${s.code}</span></td><td class="mono f11" style="text-align:center;color:var(--cyan)">${s.shares}${s.unit}</td><td class="mono f11" style="text-align:center;color:var(--sub3)">${s.cost}</td><td style="padding:3px 2px"><input class="inp" id="erh${i}" type="number" step="0.1" value="${pv}" style="width:80px;padding:3px 6px;font-size:11px" oninput="cER()"></td><td class="mono bold f11" style="text-align:right" id="erhp${i}">—</td><td style="padding:3px 2px"><select class="inp" id="erd${i}" style="width:68px;padding:2px 4px;font-size:10px;font-family:var(--sans)"><option value="">—</option><option value="續抱" ${dv==='續抱'?'selected':''}>續抱</option><option value="了結" ${dv==='了結'?'selected':''}>了結</option><option value="觀察" ${dv==='觀察'?'selected':''}>觀察</option><option value="加碼" ${dv==='加碼'?'selected':''}>加碼</option><option value="減碼" ${dv==='減碼'?'selected':''}>減碼</option></select></td></tr>`});
+  h+=`</table></div><div id="erSum" class="flex between wrap gap8" style="padding:8px 12px;border-radius:8px;background:rgba(100,255,218,.06);border:1px solid rgba(100,255,218,.12);margin-bottom:10px;font-size:12px"><span>—</span></div>
+  <h4 class="f12" style="color:var(--orange);margin-bottom:6px">🌍 國際</h4><div class="gridf" style="margin-bottom:10px;gap:6px">`;
+  GL.filter(g=>g.tk!=='非上市').forEach((g,i)=>{const old=r.gl?.find(x=>x.tk===g.tk);
+    h+=`<div class="flex gap4 center"><span class="f10" style="color:var(--sub3);min-width:45px">${g.nm}</span><input class="inp" id="erg${i}p" value="${old?.p||''}" placeholder="價格" style="width:60px;padding:3px 5px;font-size:11px"><input class="inp" id="erg${i}c" value="${old?.ch||''}" placeholder="%" style="width:45px;padding:3px 5px;font-size:11px"></div>`});
+  h+=`</div><div style="margin-bottom:10px"><textarea class="inp" id="erm" rows="2" placeholder="備忘錄...">${esc(r.memo||'')}</textarea></div>
+  <div class="flex gap8"><button class="btn btn-p" style="flex:1" onclick="savER('${id}')">💾 儲存修改</button><button class="btn btn-d" onclick="render()">取消</button></div></div>`;
+  // Replace the content area with edit form
+  document.getElementById('C').querySelector('.fade').innerHTML=`<div class="flex between center wrap gap8" style="margin-bottom:14px"><div><h2 class="f16 bold">📝 每週紀錄</h2></div></div>`+h;
+  setTimeout(cER,50);
+}
+function cER(){const act=D.holdings.filter(x=>!x.sold);let tv=0,tc=0,all=true;
+  act.forEach((s,i)=>{const p=parseFloat(document.getElementById('erh'+i)?.value);const m=mul(s);tc+=s.cost*m;
+    if(p&&!isNaN(p)){tv+=p*m;const pnl=Math.round((p-s.cost)*m);document.getElementById('erhp'+i).innerHTML=`<span style="color:${pnl>=0?'var(--green)':'var(--red)'}">${fN(pnl)}</span>`}
+    else{all=false;if(document.getElementById('erhp'+i))document.getElementById('erhp'+i).textContent='—'}});
+  const sum=document.getElementById('erSum');if(!sum)return;
+  if(all){const pnl=Math.round(tv-tc),pct=((tv-tc)/tc*100).toFixed(1),pos=pnl>=0,cl=pos?'var(--green)':'var(--red)';
+    sum.innerHTML=`<span>市值:<span class="mono bold" style="color:var(--cyan)">$${tv.toLocaleString()}</span></span><span>成本:<span class="mono" style="color:var(--sub3)">$${tc.toLocaleString()}</span></span><span>損益:<span class="mono bold" style="color:${cl}">${fN(pnl)}</span></span><span>報酬:<span class="mono bold" style="color:${cl}">${pos?'+':''}${pct}%</span></span>`}
+  else sum.innerHTML=`<span class="f12" style="color:var(--sub)">填入所有現價後自動計算</span>`
+}
+function savER(id){const r=D.wr.find(x=>x.id===id);if(!r)return;
+  const act=D.holdings.filter(x=>!x.sold);let tv=0,tc=0;
+  r.dt=document.getElementById('erd').value;r.ty=document.getElementById('ert').value;
+  r.hs=act.map((s,i)=>{const p=parseFloat(document.getElementById('erh'+i)?.value)||0;const m=mul(s);tc+=s.cost*m;tv+=p*m;const pnl=Math.round((p-s.cost)*m);const dec=document.getElementById('erd'+i)?.value||'';return{cd:s.code,nm:s.name,sh:s.shares,ut:s.unit,c:s.cost,p:p||'',pnl:pnl?fN(pnl):'',dec}});
+  const tpnl=Math.round(tv-tc),tpc=tc?((tv-tc)/tc*100).toFixed(1):'0';
+  r.gl=GL.filter(g=>g.tk!=='非上市').map((g,i)=>({tk:g.tk,nm:g.nm,p:document.getElementById('erg'+i+'p')?.value||'',ch:document.getElementById('erg'+i+'c')?.value||''}));
+  r.tv=tv?'$'+tv.toLocaleString():'';r.tc='$'+tc.toLocaleString();r.tp=tpnl?fN(tpnl):'';r.tpc=tpc?(parseFloat(tpc)>=0?'+':'')+tpc+'%':'';
+  r.memo=document.getElementById('erm').value;
+  sv();render();toast('✅ 紀錄已更新');
+}
+function rGlob(c){
+  let h=`<div class="fade"><h2 class="f16 bold" style="margin-bottom:14px">🌍 國際追蹤</h2>`;
+  [['🇺🇸','#1e88e5','美股'],['🇰🇷','#e74c3c','韓股'],['🚀','#ff8c00','其他']].forEach(([f,cl,lb])=>{
+    const items=GL.filter(g=>g.ct===f);if(!items.length)return;
+    h+=`<div class="card"><div class="card-head"><h3 style="color:${cl}">${f} ${lb}</h3></div>`;
+    items.forEach(g=>h+=`<div style="padding:8px 16px;border-bottom:1px solid rgba(100,255,218,.04);display:flex;gap:12px;align-items:center"><div style="flex:1"><p class="f13 bold">${g.nm}</p><p class="mono f11" style="color:var(--sub2)">${g.tk}</p></div><p class="f12" style="color:var(--sub3)">${g.nt}</p></div>`);h+=`</div>`});
+  h+=`<div class="card" style="padding:14px;background:rgba(255,140,0,.04);border-color:rgba(255,140,0,.12)"><h3 class="f13 bold" style="color:var(--orange);margin-bottom:6px">📌 追蹤邏輯</h3><div class="f12" style="color:var(--sub3);line-height:2"><p>🔗 美光漲→南亞科/華邦電/旺宏跟漲</p><p>🔗 SK海力士HBM→DRAM報價</p><p>🔗 三星減產→供需</p><p>🔗 NVDA→CoWoS</p><p>🔗 費半強→台灣半導體</p><p>🔗 SpaceX→低軌衛星</p></div></div></div>`;
+  c.innerHTML=h;
+}
+
+// === MONTHLY SETTLE ===
+function rSettl(c){
+  const gc={S:'#ffd700',A:'#00e676',B:'#64ffda',C:'#ff8c00',D:'#e74c3c'};
+  let h=`<div class="fade"><div class="flex between center wrap gap8" style="margin-bottom:14px"><div><h2 class="f16 bold">💰 月結算</h2><p class="f12" style="color:var(--sub)">結算→匯出→貼給Claude</p></div><button class="btn btn-p" onclick="sSF()">＋ 新增</button></div><div id="sfA"></div>`;
+  if(!D.ms.length)h+=`<div style="text-align:center;padding:40px;color:var(--sub4)"><p style="font-size:48px">💰</p><p class="f14">尚無紀錄</p></div>`;
+  else[...D.ms].reverse().forEach(r=>{
+    h+=`<div class="card" style="padding:14px"><div class="flex between center" style="margin-bottom:8px"><div class="flex center gap8"><span style="font-size:18px;font-weight:900;color:${gc[r.gr]||'var(--cyan)'}">${r.gr||'?'}</span><span class="bold f14">${r.mo}結算</span></div><div class="flex gap6"><button class="btn btn-p" style="padding:4px 10px;font-size:11px" onclick="exS('${r.id}')">📤匯出</button><button class="btn btn-d" onclick="if(confirm('刪除？')){D.ms=D.ms.filter(x=>x.id!=='${r.id}');sv();render()}">刪除</button></div></div>`;
+    h+=`<div class="gridf" style="gap:6px;margin-bottom:8px">`;
+    [['市值',r.ev],['損益',r.pa,1],['報酬',r.pp,1],['最佳',r.bs],['最差',r.ws],['配息',r.dv],['交易',r.tr],['已實現',r.rp,1]].filter(([,v])=>v).forEach(([l,v,hl])=>h+=`<div style="padding:4px 8px;border-radius:6px;background:rgba(100,255,218,.04)"><p class="f10" style="color:var(--sub2)">${l}</p><p class="mono bold f12" style="color:${hl?(String(v).startsWith('-')?'var(--red)':'var(--green)'):'var(--txt)'}">${v}</p></div>`);
+    h+=`</div>`;
+    if(r.sd?.length){h+=`<details style="margin-bottom:8px"><summary class="f11" style="color:var(--sub);cursor:pointer">📊 個股明細</summary><div style="overflow-x:auto;margin-top:6px"><table style="width:100%;border-collapse:collapse;font-size:11px"><tr style="border-bottom:1px solid rgba(255,215,0,.1)"><th style="padding:3px 6px;color:var(--sub2);text-align:left">股票</th><th style="padding:3px;text-align:center;color:var(--sub2)">量</th><th style="padding:3px;text-align:center;color:var(--sub2)">成本</th><th style="padding:3px;text-align:center;color:var(--sub2)">月底</th><th style="padding:3px;text-align:right;color:var(--sub2)">損益</th><th style="padding:3px;text-align:right;color:var(--sub2)">%</th></tr>`;
+      r.sd.forEach(s=>{const ps=s.pnl>=0;h+=`<tr style="border-bottom:1px solid rgba(255,215,0,.03)"><td style="padding:2px 6px;color:var(--sub3)">${s.nm}</td><td class="mono" style="text-align:center;color:var(--cyan)">${s.sh}${s.ut||'張'}</td><td class="mono" style="text-align:center;color:var(--sub2)">${s.c}</td><td class="mono" style="text-align:center">${s.ep||'—'}</td><td class="mono bold" style="text-align:right;color:${ps?'var(--green)':'var(--red)'}">${fN(s.pnl)}</td><td class="mono bold" style="text-align:right;color:${ps?'var(--green)':'var(--red)'}">${ps?'+':''}${s.pct}%</td></tr>`});h+=`</table></div></details>`}
+    if(r.memo)h+=`<p class="f11" style="color:var(--sub3);padding:6px 8px;background:rgba(100,255,218,.03);border-radius:4px">💭 ${esc(r.memo)}</p>`;
+    h+=`<div id="ex_${r.id}" style="display:none;margin-top:8px"></div></div>`;
+  });
+  h+=`</div>`;c.innerHTML=h;
+}
+function sSF(){const a=document.getElementById('sfA');if(a.innerHTML){a.innerHTML='';return}
+  const act=D.holdings.filter(x=>!x.sold),mos=['2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月','1月','2月(2027)'];
+  let h=`<div class="card" style="padding:14px;border-color:rgba(255,215,0,.2);margin-bottom:14px"><h3 class="f14 bold" style="color:var(--gold);margin-bottom:10px">📊 月結算（自動計算）</h3>
+  <div style="margin-bottom:10px"><label class="f11" style="color:var(--sub)">月份</label><select class="inp" id="sfm"><option value="">選擇</option>${mos.map(m=>`<option>${m}</option>`).join('')}</select></div>
+  <h4 class="f12" style="color:var(--gold);margin-bottom:6px">月底持股現價</h4><div style="overflow-x:auto;margin-bottom:8px"><table style="width:100%;border-collapse:collapse;font-size:12px"><tr style="border-bottom:1px solid rgba(255,215,0,.1)"><th style="padding:4px 6px;color:var(--sub);text-align:left">股票</th><th style="padding:4px;text-align:center;color:var(--sub)">量</th><th style="padding:4px;text-align:center;color:var(--sub)">成本</th><th style="padding:4px;text-align:left;color:var(--sub)">月底價</th><th style="padding:4px;text-align:right;color:var(--sub)">損益</th><th style="padding:4px;text-align:right;color:var(--sub)">%</th></tr>`;
+  act.forEach((s,i)=>h+=`<tr style="border-bottom:1px solid rgba(255,215,0,.04)"><td style="padding:4px 6px;font-weight:600">${s.name}<span class="f10" style="color:var(--sub2);margin-left:3px">${s.code}</span></td><td class="mono f11" style="text-align:center;color:var(--cyan)">${s.shares}${s.unit}</td><td class="mono f11" style="text-align:center;color:var(--sub3)">${s.cost}</td><td style="padding:3px 2px"><input class="inp" id="sh${i}" type="number" step="0.1" style="width:80px;padding:3px 6px;font-size:11px" oninput="cSF()"></td><td class="mono bold f11" style="text-align:right" id="shp${i}">—</td><td class="mono bold f11" style="text-align:right" id="shc${i}">—</td></tr>`);
+  h+=`</table></div><div id="sSm" style="padding:10px 14px;border-radius:10px;background:linear-gradient(135deg,rgba(255,215,0,.06),rgba(100,255,218,.04));border:1px solid rgba(255,215,0,.15);margin-bottom:10px"><span class="f12" style="color:var(--sub)">輸入月底價後自動計算</span></div>
+  <div class="grid2" style="margin-bottom:10px"><div><label class="f11" style="color:var(--sub)">💵配息</label><input class="inp" id="sdv" value="0"></div><div><label class="f11" style="color:var(--sub)">🔄交易次數</label><input class="inp" id="str" value="0"></div></div>
+  <div style="margin-bottom:10px"><label class="f11" style="color:var(--sub)">⭐ 自評等級</label><div class="flex gap6" style="margin-top:4px">${GI.map(g=>`<button class="btn" id="sg_${g.g}" onclick="pG('${g.g}')" style="padding:5px 14px;font-size:13px;font-weight:700;color:var(--sub);border-color:var(--border2)">${g.g}</button>`).join('')}</div>
+  <div style="margin-top:8px;padding:8px 10px;border-radius:8px;background:rgba(100,255,218,.03);border:1px solid rgba(100,255,218,.06)">${GI.map(g=>`<div class="flex gap6" style="margin-bottom:3px"><span style="color:${g.c};font-weight:900;min-width:16px;font-size:12px">${g.g}</span><span class="f11" style="color:var(--sub3)">${g.d}</span></div>`).join('')}</div></div>
+  <div style="margin-bottom:12px"><textarea class="inp" id="sme" rows="3" placeholder="本月心得 / 給Claude的話"></textarea></div>
+  <div class="flex gap8"><button class="btn btn-g" style="flex:1" onclick="savSF()">💾 儲存結算</button><button class="btn btn-d" onclick="document.getElementById('sfA').innerHTML=''">取消</button></div></div>`;
+  a.innerHTML=h;
+}
+function cSF(){const act=D.holdings.filter(x=>!x.sold);let tv=0,tc=0,all=true,bst={n:'',p:-Infinity},wst={n:'',p:Infinity};
+  act.forEach((s,i)=>{const p=parseFloat(document.getElementById('sh'+i)?.value);const m=mul(s);tc+=s.cost*m;
+    if(p&&!isNaN(p)){tv+=p*m;const pnl=Math.round((p-s.cost)*m),pct=((p-s.cost)/s.cost*100).toFixed(1),pos=pnl>=0,cl=pos?'var(--green)':'var(--red)';
+      document.getElementById('shp'+i).innerHTML=`<span style="color:${cl}">${fN(pnl)}</span>`;
+      document.getElementById('shc'+i).innerHTML=`<span style="color:${cl}">${pos?'+':''}${pct}%</span>`;
+      const lb=s.name+(s.shares>1?'×'+s.shares:''),pn=parseFloat(pct);if(pn>bst.p)bst={n:lb,p:pn};if(pn<wst.p)wst={n:lb,p:pn}}
+    else{all=false;document.getElementById('shp'+i).textContent='—';document.getElementById('shc'+i).textContent='—'}});
+  const sm=document.getElementById('sSm');const rz=D.pt.reduce((s,r)=>s+(r.pnl||0),0);
+  if(all){const pnl=Math.round(tv-tc),pct=((tv-tc)/tc*100).toFixed(1),pos=pnl>=0,cl=pos?'var(--green)':'var(--red)';
+    sm.innerHTML=`<div class="flex between wrap gap8" style="margin-bottom:6px"><div><span class="f10" style="color:var(--sub)">月底市值</span><p class="mono bold f14" style="color:var(--cyan)">$${tv.toLocaleString()}</p></div><div><span class="f10" style="color:var(--sub)">未實現損益</span><p class="mono bold f14" style="color:${cl}">${fN(pnl)}</p></div><div><span class="f10" style="color:var(--sub)">報酬率</span><p class="mono bold f14" style="color:${cl}">${pos?'+':''}${pct}%</p></div>${rz?`<div><span class="f10" style="color:var(--sub)">已實現</span><p class="mono bold f14" style="color:${rz>=0?'var(--green)':'var(--red)'}">${fN(rz)}</p></div>`:''}</div><div class="flex between wrap gap8"><div><span class="f10" style="color:var(--sub)">🏆最佳</span><p class="mono bold f12" style="color:var(--green)">${bst.n} ${bst.p>=0?'+':''}${bst.p.toFixed(1)}%</p></div><div><span class="f10" style="color:var(--sub)">📉最差</span><p class="mono bold f12" style="color:var(--red)">${wst.n} ${wst.p>=0?'+':''}${wst.p.toFixed(1)}%</p></div></div>`}
+  else sm.innerHTML=`<span class="f12" style="color:var(--sub)">輸入所有月底價後自動計算</span>`}
+function pG(g){_gr=g;GI.forEach(x=>{const el=document.getElementById('sg_'+x.g);if(x.g===g){el.style.background=x.c+'30';el.style.borderColor=x.c;el.style.color=x.c}else{el.style.background='transparent';el.style.borderColor='rgba(100,255,218,.15)';el.style.color='var(--sub)'}})}
+function savSF(){const act=D.holdings.filter(x=>!x.sold);let tv=0,tc=0,bst={n:'',p:-Infinity},wst={n:'',p:Infinity};
+  const sd=act.map((s,i)=>{const p=parseFloat(document.getElementById('sh'+i)?.value)||0;const m=mul(s);tc+=s.cost*m;tv+=p*m;const pnl=Math.round((p-s.cost)*m),pct=((p-s.cost)/s.cost*100).toFixed(1),lb=s.name+(s.shares>1?'×'+s.shares:''),pn=parseFloat(pct);if(pn>bst.p)bst={n:lb,p:pn};if(pn<wst.p)wst={n:lb,p:pn};return{cd:s.code,nm:s.name,sh:s.shares,ut:s.unit,c:s.cost,ep:p,pnl,pct}});
+  const pnl=Math.round(tv-tc),pct=tc?((tv-tc)/tc*100).toFixed(1):'0',pos=pnl>=0,rz=D.pt.reduce((s,r)=>s+(r.pnl||0),0);
+  D.ms.push({id:'ms_'+Date.now(),mo:document.getElementById('sfm').value,ev:'$'+tv.toLocaleString(),pa:fN(pnl),pp:(parseFloat(pct)>=0?'+':'')+pct+'%',bs:bst.n+' '+(bst.p>=0?'+':'')+bst.p.toFixed(1)+'%',ws:wst.n+' '+(wst.p>=0?'+':'')+wst.p.toFixed(1)+'%',dv:document.getElementById('sdv').value,tr:document.getElementById('str').value,gr:_gr,memo:document.getElementById('sme').value,sd,rp:rz?fN(rz):''});
+  _gr='';sv();render();toast('✅ 結算已儲存');
+}
+function exS(id){const r=D.ms.find(x=>x.id===id);if(!r)return;const el=document.getElementById('ex_'+id);if(el.style.display==='block'){el.style.display='none';return}
+  let t=`══════════════════════════════════\n📊 台股作戰計畫 — ${r.mo}結算報表\n══════════════════════════════════\n持股人：Sone Wang｜自評：${r.gr||'未評'}\n\n【📈 績效】市值:${r.ev} 損益:${r.pa} 報酬:${r.pp} 配息:${r.dv||0} 交易:${r.tr||0}次\n最佳:${r.bs} 最差:${r.ws}\n${r.rp?'累計已實現:'+r.rp+'\n':''}\n【💼 個股】\n`;
+  if(r.sd)r.sd.forEach(s=>{const ps=s.pnl>=0;t+=`${s.nm}(${s.cd}) ${s.sh}${s.ut||'張'} 成本$${s.c} 月底$${s.ep} ${ps?'+':''}${s.pnl.toLocaleString()}(${ps?'+':''}${s.pct}%)\n`});
+  if(D.pt.length){t+=`\n【💎 了結】\n`;D.pt.forEach(p=>t+=`${p.dt} ${p.nm} ${p.qty}${p.ut} @${p.sp} ${fN(p.pnl)}\n`)}
+  t+=`\n【💭 心得】${r.memo||'無'}\n\n══════════════════════════════════\n⚠️ 請Claude評核：1.績效評分 2.紀律評價 3.下月建議 4.風險提醒\n══════════════════════════════════`;
+  el.style.display='block';el.innerHTML=`<div style="padding:10px;border-radius:8px;background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.15)"><div class="flex between center" style="margin-bottom:6px"><span class="f12 bold" style="color:var(--gold)">📤 匯出報表</span><button class="btn btn-p" onclick="navigator.clipboard.writeText(document.getElementById('et_${id}').value).then(()=>toast('📋 已複製！貼給Claude評核'))">📋 複製</button></div><textarea id="et_${id}" class="inp" rows="10" style="font-size:10px;line-height:1.5;background:rgba(0,0,0,.3)">${esc(t)}</textarea><p class="f11" style="color:var(--sub);margin-top:4px">複製後貼到 Claude 對話即可評核 👆</p></div>`}
+
+// === HALF YEAR ===
+function rHalf(c){
+  let h=`<div class="fade"><h2 class="f16 bold" style="margin-bottom:4px">📊 半年度結算</h2><p class="f12" style="color:var(--sub);margin-bottom:14px">H1:2-7月 H2:8-1月｜自動彙整月結算</p>`;
+  [1,2].forEach(hf=>{
+    const lb=hf===1?'H1 上半年（2～7月）':'H2 下半年（8～隔年2月）',cl=hf===1?'var(--gold)':'var(--purple)';
+    const hm=hf===1?['2月','3月','4月','5月','6月','7月']:['8月','9月','10月','11月','12月','1月','2月(2027)'];
+    const st=D.ms.filter(s=>hm.includes(s.mo)),rz=D.pt.reduce((s,r)=>s+(r.pnl||0),0);
+    const mt=MO.filter(m=>m.h===hf);let td=0,tt=0;mt.forEach(m=>{const p=mProg(m);td+=p.d;tt+=p.t});
+    h+=`<div class="card" style="border-color:${hf===1?'rgba(255,215,0,.15)':'rgba(187,134,252,.15)'}"><div class="card-head" style="background:${hf===1?'rgba(255,215,0,.06)':'rgba(187,134,252,.06)'}"><h3 style="color:${cl}">${lb}</h3></div><div style="padding:14px 16px">`;
+    if(!st.length)h+=`<p class="f13" style="color:var(--sub4)">完成月結算後自動彙整。</p>`;
+    else{const ls=st[st.length-1];
+      h+=`<div class="gridf" style="gap:8px;margin-bottom:12px">${[['月結算',st.length+'筆'],['最新市值',ls.ev],['最新報酬',ls.pp,1],['任務',td+'/'+tt+' ('+Math.round(td/tt*100)+'%)']].map(([l,v,hl])=>`<div style="padding:8px 10px;border-radius:8px;background:rgba(100,255,218,.04)"><p class="f10" style="color:var(--sub2)">${l}</p><p class="mono bold f13" style="color:${hl?(String(v).startsWith('-')?'var(--red)':'var(--green)'):'var(--cyan)'}">${v}</p></div>`).join('')}${rz?`<div style="padding:8px 10px;border-radius:8px;background:${rz>=0?'rgba(0,230,118,.06)':'rgba(255,82,82,.06)'}"><p class="f10" style="color:var(--sub2)">已實現</p><p class="mono bold f13" style="color:${rz>=0?'var(--green)':'var(--red)'}">${fN(rz)}</p></div>`:''}</div>
+      <h4 class="f12" style="color:var(--sub3);margin-bottom:6px">月度趨勢</h4><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px"><tr style="border-bottom:1px solid var(--border)"><th style="padding:4px 8px;color:var(--sub2);text-align:left">月</th><th style="padding:4px;text-align:center;color:var(--sub2)">等級</th><th style="padding:4px;text-align:right;color:var(--sub2)">市值</th><th style="padding:4px;text-align:right;color:var(--sub2)">損益</th><th style="padding:4px;text-align:right;color:var(--sub2)">報酬</th></tr>`;
+      const gc={S:'#ffd700',A:'#00e676',B:'#64ffda',C:'#ff8c00',D:'#e74c3c'};
+      st.forEach(s=>h+=`<tr style="border-bottom:1px solid rgba(100,255,218,.03)"><td style="padding:3px 8px">${s.mo}</td><td style="text-align:center;font-weight:900;color:${gc[s.gr]||'var(--sub)'}">${s.gr||'-'}</td><td class="mono" style="text-align:right;color:var(--cyan)">${s.ev||''}</td><td class="mono bold" style="text-align:right;color:${String(s.pa||'').startsWith('-')?'var(--red)':'var(--green)'}">${s.pa||''}</td><td class="mono bold" style="text-align:right;color:${String(s.pp||'').startsWith('-')?'var(--red)':'var(--green)'}">${s.pp||''}</td></tr>`);
+      h+=`</table></div>`}
+    h+=`<div style="margin-top:10px"><button class="btn ${hf===1?'btn-g':'btn-v'}" onclick="exH(${hf})">📤 匯出${hf===1?'H1':'H2'}報表</button></div><div id="he${hf}" style="display:none;margin-top:8px"></div></div></div>`;
+  });h+=`</div>`;c.innerHTML=h;
+}
+function exH(hf){const el=document.getElementById('he'+hf);if(el.style.display==='block'){el.style.display='none';return}
+  const lb=hf===1?'H1 上半年':'H2 下半年',hm=hf===1?['2月','3月','4月','5月','6月','7月']:['8月','9月','10月','11月','12月','1月','2月(2027)'];
+  const st=D.ms.filter(s=>hm.includes(s.mo)),rz=D.pt.reduce((s,r)=>s+(r.pnl||0),0);
+  const mt=MO.filter(m=>m.h===hf);let td=0,tt=0;mt.forEach(m=>{const p=mProg(m);td+=p.d;tt+=p.t});
+  let t=`══════════════════════════════════\n📊 台股作戰計畫 — ${lb}結算\n══════════════════════════════════\n持股人：Sone Wang\n\n【📅 月度趨勢】\n`;
+  st.forEach(s=>t+=`${s.mo} [${s.gr||'-'}] 市值${s.ev} 損益${s.pa} 報酬${s.pp}\n`);
+  t+=`\n任務完成：${td}/${tt} (${tt?Math.round(td/tt*100):0}%)\n`;
+  if(rz)t+=`累計已實現：${fN(rz)}\n`;
+  if(D.pt.length){t+=`\n【💎 了結】\n`;D.pt.forEach(p=>t+=`${p.dt} ${p.nm} ${p.qty}${p.ut} @${p.sp} ${fN(p.pnl)} ${p.memo||''}\n`)}
+  t+=`\n【💼 現持股】\n`;D.holdings.filter(x=>!x.sold).forEach(s=>t+=`${s.name}(${s.code}) ${s.shares}${s.unit} $${s.cost} 目標$${s.target} ${s.strat}\n`);
+  t+=`\n══════════════════════════════════\n⚠️ 請Claude半年度評核：1.整體評分 2.組合建議 3.下半年策略 4.風險警示\n══════════════════════════════════`;
+  el.style.display='block';el.innerHTML=`<div style="padding:10px;border-radius:8px;background:${hf===1?'rgba(255,215,0,.05)':'rgba(187,134,252,.05)'};border:1px solid ${hf===1?'rgba(255,215,0,.15)':'rgba(187,134,252,.15)'}"><div class="flex between center" style="margin-bottom:6px"><span class="f12 bold" style="color:${hf===1?'var(--gold)':'var(--purple)'}">${lb}報表</span><button class="btn btn-p" onclick="navigator.clipboard.writeText(document.getElementById('ht${hf}').value).then(()=>toast('📋 已複製！'))">📋 複製</button></div><textarea id="ht${hf}" class="inp" rows="12" style="font-size:10px;line-height:1.5;background:rgba(0,0,0,.3)">${esc(t)}</textarea></div>`}
+
+// === TARGETS ===
+function rTarg(c){const act=D.holdings.filter(x=>!x.sold);let tp=0;
+  let h=`<div class="fade"><h2 class="f16 bold" style="margin-bottom:14px">🎯 目標與潛在報酬</h2>`;
+  act.forEach((s,i)=>{const tgt=parseFloat(s.target),m=mul(s),pot=tgt?Math.round((tgt-s.cost)*m):0;if(pot)tp+=pot;
+    h+=`<div class="flex gap10 center wrap" style="padding:10px 14px;margin-bottom:5px;border-radius:8px;border:1px solid var(--border);background:${i%2===0?'var(--card)':'var(--card2)'}"><div style="min-width:90px"><p class="f13 bold">${s.name}${s.shares>1?'×'+s.shares:''}</p><p class="f10" style="color:var(--sub2)">${s.code}｜${s.strat||''}</p></div><div class="flex center gap6" style="flex:1"><span class="mono f12" style="color:var(--sub3)">${s.cost}</span><span style="color:var(--sub2)">→</span><span class="mono bold f12" style="color:var(--cyan)">${s.target||'—'}</span></div>${pot?`<p class="mono bold f13" style="color:${pot>=0?'var(--green)':'var(--red)'}">${fN(pot)}</p>`:''}</div>`});
+  if(tp)h+=`<div style="margin-top:14px;padding:14px;border-radius:10px;text-align:center;background:linear-gradient(135deg,rgba(0,230,118,.08),rgba(100,255,218,.04));border:1px solid rgba(0,230,118,.15)"><p class="f12" style="color:var(--sub)">全達標潛在獲利</p><p class="mono" style="font-size:24px;font-weight:900;color:var(--green)">${fN(tp)}</p></div>`;
+  h+=`<div style="margin-top:16px;padding:14px;border-radius:10px;text-align:center;background:var(--card);border:1px solid var(--border)"><p class="bold f13" style="color:var(--cyan);margin-bottom:6px">🧧 心法</p><p class="f12" style="color:var(--sub3);line-height:2">「不動就是最好的動作。」<br>「用賺到的錢開新倉。」<br>「紀律 > 報酬。」</p></div></div>`;
+  c.innerHTML=h;
+}
+
+ld();render();
+</script>
+</body>
+</html>
