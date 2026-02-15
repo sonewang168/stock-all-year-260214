@@ -109,6 +109,9 @@ const GL=[
   {id:'g4',nm:'三星電子',tk:'005930.KS',ct:'🇰🇷',nt:'DRAM/NAND市佔第一'},
   {id:'g5',nm:'費半',tk:'SOX',ct:'🇺🇸',nt:'半導體景氣指標'},
   {id:'g6',nm:'SpaceX',tk:'非上市',ct:'🚀',nt:'低軌衛星催化劑'},
+  {id:'g7',nm:'京元電子',tk:'2449',ct:'🔍',nt:'輝達Rubin測試+ASIC｜回檔10-15%考慮進場'},
+  {id:'g8',nm:'日月光',tk:'3711',ct:'🔍',nt:'封測龍頭CoWoS｜PE42偏高等回檔'},
+  {id:'g9',nm:'波若威',tk:'3163',ct:'🔍',nt:'CPO矽光子｜PE>100超貴先零股試水'},
 ];
 const GI=[{g:'S',c:'#ffd700',d:'完美：紀律100%、正報酬、零衝動'},{g:'A',c:'#00e676',d:'優良：紀律佳、獲利/持平、≤1換股'},{g:'B',c:'#64ffda',d:'及格：小虧可控、沒亂動'},{g:'C',c:'#ff8c00',d:'檢討：違規1-2次、衝動交易'},{g:'D',c:'#e74c3c',d:'失控：多次違規、情緒化操作'}];
 
@@ -136,7 +139,7 @@ function render(){
   document.getElementById('tTxt').textContent=`${tp.d}/${tp.t}（${tp.p}%）`;
   const hs=hStats();
   document.getElementById('headerSub').textContent=`2026/2～2027/2（13個月）｜Sone Wang｜${hs.z}張${hs.o?'+'+hs.o+'股':''}／${hs.cnt}檔`;
-  const vs=[['plan','📋作戰'],['holdings','💼持股'],['tracker','📝週紀錄'],['global','🌍國際'],['settle','💰月結算'],['profit','💎了結'],['half','📊半年報'],['targets','🎯目標']];
+  const vs=[['plan','📋作戰'],['holdings','💼持股'],['tracker','📝週紀錄'],['global','🔍追蹤'],['settle','💰月結算'],['profit','💎了結'],['half','📊半年報'],['targets','🎯目標']];
   document.getElementById('vTabs').innerHTML=vs.map(([k,l])=>`<button class="tab ${cV===k?'on':''}" onclick="cV='${k}';render()">${l}</button>`).join('');
   const mt=document.getElementById('mTabs');
   if(cV==='plan'){mt.style.display='flex';
@@ -226,7 +229,7 @@ function sRF(){const a=document.getElementById('rfA');if(a.innerHTML){a.innerHTM
   act.forEach((s,i)=>h+=`<tr style="border-bottom:1px solid rgba(100,255,218,.04)"><td style="padding:4px 6px;font-weight:600">${s.name}<span class="f10" style="color:var(--sub2);margin-left:3px">${s.code}</span></td><td class="mono f11" style="text-align:center;color:var(--cyan)">${s.shares}${s.unit}</td><td class="mono f11" style="text-align:center;color:var(--sub3)">${s.cost}</td><td style="padding:3px 2px"><input class="inp" id="rh${i}" type="number" step="0.1" style="width:80px;padding:3px 6px;font-size:11px" oninput="cWR()"></td><td class="mono bold f11" style="text-align:right" id="rhp${i}">—</td><td style="padding:3px 2px"><select class="inp" id="rd${i}" style="width:68px;padding:2px 4px;font-size:10px;font-family:var(--sans)"><option value="">—</option><option value="續抱">續抱</option><option value="了結">了結</option><option value="觀察">觀察</option><option value="加碼">加碼</option><option value="減碼">減碼</option></select></td></tr>`);
   h+=`</table></div><div id="rSum" class="flex between wrap gap8" style="padding:8px 12px;border-radius:8px;background:rgba(100,255,218,.06);border:1px solid rgba(100,255,218,.12);margin-bottom:10px;font-size:12px"><span>填入現價後自動計算</span></div>
   <h4 class="f12" style="color:var(--orange);margin-bottom:6px">🌍 國際</h4><div class="gridf" style="margin-bottom:10px;gap:6px">`;
-  GL.filter(g=>g.tk!=='非上市').forEach((g,i)=>h+=`<div class="flex gap4 center"><span class="f10" style="color:var(--sub3);min-width:45px">${g.nm}</span><input class="inp" id="rg${i}p" placeholder="價格" style="width:60px;padding:3px 5px;font-size:11px"><input class="inp" id="rg${i}c" placeholder="%" style="width:45px;padding:3px 5px;font-size:11px"></div>`);
+  GL.filter(g=>g.tk!=='非上市'&&g.ct!=='🔍').forEach((g,i)=>h+=`<div class="flex gap4 center"><span class="f10" style="color:var(--sub3);min-width:45px">${g.nm}</span><input class="inp" id="rg${i}p" placeholder="價格" style="width:60px;padding:3px 5px;font-size:11px"><input class="inp" id="rg${i}c" placeholder="%" style="width:45px;padding:3px 5px;font-size:11px"></div>`);
   h+=`</div><div style="margin-bottom:10px"><textarea class="inp" id="rm" rows="2" placeholder="備忘錄..."></textarea></div><div class="flex gap8"><button class="btn btn-p" style="flex:1" onclick="savWR()">💾 儲存</button><button class="btn btn-d" onclick="document.getElementById('rfA').innerHTML=''">取消</button></div></div>`;
   a.innerHTML=h;
 }
@@ -242,7 +245,7 @@ function savWR(){const act=D.holdings.filter(x=>!x.sold);let tv=0,tc=0;
   const hs=act.map((s,i)=>{const p=parseFloat(document.getElementById('rh'+i)?.value)||0;const m=mul(s);tc+=s.cost*m;tv+=p*m;const pnl=Math.round((p-s.cost)*m);const dec=document.getElementById('rd'+i)?.value||'';return{cd:s.code,nm:s.name,sh:s.shares,ut:s.unit,c:s.cost,p:p||'',pnl:pnl?fN(pnl):'',dec}});
   const tpnl=Math.round(tv-tc),tpc=tc?((tv-tc)/tc*100).toFixed(1):'0';
   D.wr.push({id:'wr_'+Date.now(),dt:document.getElementById('rd').value,ty:document.getElementById('rt').value,hs,
-    gl:GL.filter(g=>g.tk!=='非上市').map((g,i)=>({tk:g.tk,nm:g.nm,p:document.getElementById('rg'+i+'p')?.value||'',ch:document.getElementById('rg'+i+'c')?.value||''})),
+    gl:GL.filter(g=>g.tk!=='非上市'&&g.ct!=='🔍').map((g,i)=>({tk:g.tk,nm:g.nm,p:document.getElementById('rg'+i+'p')?.value||'',ch:document.getElementById('rg'+i+'c')?.value||''})),
     tv:tv?'$'+tv.toLocaleString():'',tc:'$'+tc.toLocaleString(),tp:tpnl?fN(tpnl):'',tpc:tpc?(parseFloat(tpc)>=0?'+':'')+tpc+'%':'',memo:document.getElementById('rm').value});
   sv();render();toast('✅ 已儲存');
 }
@@ -257,7 +260,7 @@ function eWR(id){
     h+=`<tr style="border-bottom:1px solid rgba(100,255,218,.04)"><td style="padding:4px 6px;font-weight:600">${s.name}<span class="f10" style="color:var(--sub2);margin-left:3px">${s.code}</span></td><td class="mono f11" style="text-align:center;color:var(--cyan)">${s.shares}${s.unit}</td><td class="mono f11" style="text-align:center;color:var(--sub3)">${s.cost}</td><td style="padding:3px 2px"><input class="inp" id="erh${i}" type="number" step="0.1" value="${pv}" style="width:80px;padding:3px 6px;font-size:11px" oninput="cER()"></td><td class="mono bold f11" style="text-align:right" id="erhp${i}">—</td><td style="padding:3px 2px"><select class="inp" id="erd${i}" style="width:68px;padding:2px 4px;font-size:10px;font-family:var(--sans)"><option value="">—</option><option value="續抱" ${dv==='續抱'?'selected':''}>續抱</option><option value="了結" ${dv==='了結'?'selected':''}>了結</option><option value="觀察" ${dv==='觀察'?'selected':''}>觀察</option><option value="加碼" ${dv==='加碼'?'selected':''}>加碼</option><option value="減碼" ${dv==='減碼'?'selected':''}>減碼</option></select></td></tr>`});
   h+=`</table></div><div id="erSum" class="flex between wrap gap8" style="padding:8px 12px;border-radius:8px;background:rgba(100,255,218,.06);border:1px solid rgba(100,255,218,.12);margin-bottom:10px;font-size:12px"><span>—</span></div>
   <h4 class="f12" style="color:var(--orange);margin-bottom:6px">🌍 國際</h4><div class="gridf" style="margin-bottom:10px;gap:6px">`;
-  GL.filter(g=>g.tk!=='非上市').forEach((g,i)=>{const old=r.gl?.find(x=>x.tk===g.tk);
+  GL.filter(g=>g.tk!=='非上市'&&g.ct!=='🔍').forEach((g,i)=>{const old=r.gl?.find(x=>x.tk===g.tk);
     h+=`<div class="flex gap4 center"><span class="f10" style="color:var(--sub3);min-width:45px">${g.nm}</span><input class="inp" id="erg${i}p" value="${old?.p||''}" placeholder="價格" style="width:60px;padding:3px 5px;font-size:11px"><input class="inp" id="erg${i}c" value="${old?.ch||''}" placeholder="%" style="width:45px;padding:3px 5px;font-size:11px"></div>`});
   h+=`</div><div style="margin-bottom:10px"><textarea class="inp" id="erm" rows="2" placeholder="備忘錄...">${esc(r.memo||'')}</textarea></div>
   <div class="flex gap8"><button class="btn btn-p" style="flex:1" onclick="savER('${id}')">💾 儲存修改</button><button class="btn btn-d" onclick="render()">取消</button></div></div>`;
@@ -279,18 +282,19 @@ function savER(id){const r=D.wr.find(x=>x.id===id);if(!r)return;
   r.dt=document.getElementById('erd').value;r.ty=document.getElementById('ert').value;
   r.hs=act.map((s,i)=>{const p=parseFloat(document.getElementById('erh'+i)?.value)||0;const m=mul(s);tc+=s.cost*m;tv+=p*m;const pnl=Math.round((p-s.cost)*m);const dec=document.getElementById('erd'+i)?.value||'';return{cd:s.code,nm:s.name,sh:s.shares,ut:s.unit,c:s.cost,p:p||'',pnl:pnl?fN(pnl):'',dec}});
   const tpnl=Math.round(tv-tc),tpc=tc?((tv-tc)/tc*100).toFixed(1):'0';
-  r.gl=GL.filter(g=>g.tk!=='非上市').map((g,i)=>({tk:g.tk,nm:g.nm,p:document.getElementById('erg'+i+'p')?.value||'',ch:document.getElementById('erg'+i+'c')?.value||''}));
+  r.gl=GL.filter(g=>g.tk!=='非上市'&&g.ct!=='🔍').map((g,i)=>({tk:g.tk,nm:g.nm,p:document.getElementById('erg'+i+'p')?.value||'',ch:document.getElementById('erg'+i+'c')?.value||''}));
   r.tv=tv?'$'+tv.toLocaleString():'';r.tc='$'+tc.toLocaleString();r.tp=tpnl?fN(tpnl):'';r.tpc=tpc?(parseFloat(tpc)>=0?'+':'')+tpc+'%':'';
   r.memo=document.getElementById('erm').value;
   sv();render();toast('✅ 紀錄已更新');
 }
 function rGlob(c){
-  let h=`<div class="fade"><h2 class="f16 bold" style="margin-bottom:14px">🌍 國際追蹤</h2>`;
-  [['🇺🇸','#1e88e5','美股'],['🇰🇷','#e74c3c','韓股'],['🚀','#ff8c00','其他']].forEach(([f,cl,lb])=>{
+  let h=`<div class="fade"><h2 class="f16 bold" style="margin-bottom:14px">🌍 追蹤與觀察</h2>`;
+  [['🇺🇸','#1e88e5','美股'],['🇰🇷','#e74c3c','韓股'],['🚀','#ff8c00','其他'],['🔍','#bb86fc','台股觀察清單']].forEach(([f,cl,lb])=>{
     const items=GL.filter(g=>g.ct===f);if(!items.length)return;
-    h+=`<div class="card"><div class="card-head"><h3 style="color:${cl}">${f} ${lb}</h3></div>`;
+    h+=`<div class="card" style="${f==='🔍'?'border-color:rgba(187,134,252,.2)':''}"><div class="card-head" style="${f==='🔍'?'background:rgba(187,134,252,.06)':''}"><h3 style="color:${cl}">${f} ${lb}</h3></div>`;
     items.forEach(g=>h+=`<div style="padding:8px 16px;border-bottom:1px solid rgba(100,255,218,.04);display:flex;gap:12px;align-items:center"><div style="flex:1"><p class="f13 bold">${g.nm}</p><p class="mono f11" style="color:var(--sub2)">${g.tk}</p></div><p class="f12" style="color:var(--sub3)">${g.nt}</p></div>`);h+=`</div>`});
-  h+=`<div class="card" style="padding:14px;background:rgba(255,140,0,.04);border-color:rgba(255,140,0,.12)"><h3 class="f13 bold" style="color:var(--orange);margin-bottom:6px">📌 追蹤邏輯</h3><div class="f12" style="color:var(--sub3);line-height:2"><p>🔗 美光漲→南亞科/華邦電/旺宏跟漲</p><p>🔗 SK海力士HBM→DRAM報價</p><p>🔗 三星減產→供需</p><p>🔗 NVDA→CoWoS</p><p>🔗 費半強→台灣半導體</p><p>🔗 SpaceX→低軌衛星</p></div></div></div>`;
+  h+=`<div class="card" style="padding:14px;background:rgba(255,140,0,.04);border-color:rgba(255,140,0,.12)"><h3 class="f13 bold" style="color:var(--orange);margin-bottom:6px">📌 追蹤邏輯</h3><div class="f12" style="color:var(--sub3);line-height:2"><p>🔗 美光漲→南亞科/華邦電/旺宏跟漲</p><p>🔗 SK海力士HBM→DRAM報價</p><p>🔗 三星減產→供需</p><p>🔗 NVDA→CoWoS→日月光/京元電</p><p>🔗 費半強→台灣半導體</p><p>🔗 SpaceX→低軌衛星</p><p>🔗 NVDA CPO→波若威（待驗證）</p></div></div>
+  <div class="card" style="padding:14px;background:rgba(187,134,252,.04);border-color:rgba(187,134,252,.12)"><h3 class="f13 bold" style="color:var(--purple);margin-bottom:6px">🔍 觀察清單進場策略</h3><div class="f12" style="color:var(--sub3);line-height:2"><p>📍 京元電 2449：等Q4財報(3月)+回檔至270以下考慮1張</p><p>📍 日月光 3711：等回檔至310以下，PE降至35再評估</p><p>📍 波若威 3163：先零股100-500股試水，等CPO驗證放量</p><p>⏰ 最快進場時間：3月財報季後</p><p>💡 資金來源：用現有持股獲利了結的錢</p></div></div></div>`;
   c.innerHTML=h;
 }
 
